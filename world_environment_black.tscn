@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://o27h1mh6a675"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_eoqbg"]
+
+[sub_resource type="Sky" id="Sky_un6do"]
+sky_material = SubResource("ProceduralSkyMaterial_eoqbg")
+
+[sub_resource type="Environment" id="Environment_t252q"]
+sky = SubResource("Sky_un6do")
+ssao_intensity = 3.84
+glow_enabled = true
+glow_intensity = 0.59
+fog_light_color = Color(1, 1, 1, 1)
+fog_light_energy = 1.31
+fog_density = 0.5552
+fog_sky_affect = 0.0
+adjustment_brightness = 0.9
+adjustment_contrast = 1.175
+adjustment_saturation = 1.32
+
+[node name="WorldEnvironment2" type="WorldEnvironment" unique_id=609498297]
+environment = SubResource("Environment_t252q")
