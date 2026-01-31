@@ -1,0 +1,62 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dl57b2o1u555j"]
+
+[ext_resource type="Shader" path="res://postfx.gdshader" id="1_xrnlu"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_xrnlu")
+shader_parameter/effect_mode = 1
+shader_parameter/seed = 0.0
+shader_parameter/debug_mode = 0
+shader_parameter/debug_dist_scale = 120.0
+shader_parameter/depth_far_epsilon = 1e-06
+shader_parameter/fog_start = 0.5
+shader_parameter/fog_end = 8.0
+shader_parameter/fog_density = 2.5
+shader_parameter/fog_strength_mul = 2.0
+shader_parameter/fog_power = 1.5
+shader_parameter/fog_max = 1.0
+shader_parameter/fog_color_near = Color(0.65, 0.75, 0.9, 1)
+shader_parameter/fog_color_far = Color(0.92, 0.96, 1, 1)
+shader_parameter/fog_mix_amount = 1.0
+shader_parameter/fog_add_amount = 0.6
+shader_parameter/fog_up_start_y = 2.0
+shader_parameter/fog_up_end_y = 25.0
+shader_parameter/fog_up_strength = 8.0
+shader_parameter/fog_up_power = 1.5
+shader_parameter/fog_dither_amount = 0.04
+shader_parameter/noise_dist_start = 20.0
+shader_parameter/noise_dist_end = 500.0
+shader_parameter/noise_strength_near = 1.0
+shader_parameter/noise_strength_far = 1.0
+shader_parameter/noise_falloff_power = 2.5
+shader_parameter/noise_strength_mul = 20.0
+shader_parameter/noise_inv_distance_boost = 12.0
+shader_parameter/noise_min_distance = 0.05
+shader_parameter/noise_blackout_start = 0.0
+shader_parameter/noise_blackout_end = 3.0
+shader_parameter/noise_blackout_amount = 1.0
+shader_parameter/grain_size_px = 1.0
+shader_parameter/noise_speed = 1.0
+shader_parameter/noise_pixel_jitter = 1.5
+shader_parameter/noise_apply_linear = 1
+shader_parameter/noise_dark_only = 1.0
+shader_parameter/noise_speckle_power = 0.6
+shader_parameter/noise_luma_boost = 3.0
+shader_parameter/noise_luma_power = 2.0
+shader_parameter/signal_sample_radius_px = 1.0
+shader_parameter/signal_flat_boost = 6.0
+shader_parameter/signal_flat_low = 0.01
+shader_parameter/signal_flat_high = 0.08
+shader_parameter/signal_edge_suppress = 0.35
+shader_parameter/signal_edge_low = 0.05
+shader_parameter/signal_edge_high = 0.2
+shader_parameter/signal_boost_fades_with_distance = 1.0
+shader_parameter/firefly_amount = 0.12
+shader_parameter/firefly_color = Color(1, 0.95, 0.8, 1)
+shader_parameter/firefly_cell_size_px = 64.0
+shader_parameter/firefly_rate = 0.002
+shader_parameter/firefly_hold_frames = 16.0
+shader_parameter/firefly_intensity = 10.0
+shader_parameter/firefly_radius_px = 2.5
+shader_parameter/firefly_luma_threshold = 0.35

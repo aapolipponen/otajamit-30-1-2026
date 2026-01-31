@@ -1,0 +1,7 @@
+[gd_resource type="PanoramaSkyMaterial" format=3 uid="uid://x1qffxcym4g"]
+
+[ext_resource type="Texture2D" uid="uid://cqxe5b0spsxqj" path="res://starmap_2020_2k.exr" id="1_o311g"]
+
+[resource]
+panorama = ExtResource("1_o311g")
+energy_multiplier = 3.0

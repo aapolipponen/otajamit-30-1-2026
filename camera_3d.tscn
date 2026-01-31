@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://1ib53lqdqtn"]
+
+[ext_resource type="Script" path="res://PostFXController.gd" id="1_chmbt"]
+[ext_resource type="Material" uid="uid://dl57b2o1u555j" path="res://postfx.tres" id="2_w7mgm"]
+[ext_resource type="Script" path="res://post_fx_quad.gd" id="3_jj7nd"]
+[ext_resource type="Shader" uid="uid://vn0m8l26dl6v" path="res://postfx.gdshader" id="4_bjwgg"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_2be4l"]
+material = ExtResource("2_w7mgm")
+size = Vector2(2, 2)
+
+[node name="Camera3D" type="Camera3D" unique_id=1019764245]
+script = ExtResource("1_chmbt")
+post_fx_quad_path = NodePath("PostFXQuad")
+
+[node name="PostFXQuad" type="MeshInstance3D" parent="." unique_id=601849009]
+extra_cull_margin = 5916.44
+mesh = SubResource("QuadMesh_2be4l")
+script = ExtResource("3_jj7nd")
+post_fx_shader = ExtResource("4_bjwgg")
+start_effect = 0
