@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://7rwa47xsk8m2"]
 
 [ext_resource type="Script" uid="uid://baije7t0sp06p" path="res://PlayerController.gd" id="1_r13wb"]
-[ext_resource type="PackedScene" uid="uid://1ib53lqdqtn" path="res://camera_3d.tscn" id="2_3mwrl"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rbo2t"]
 
@@ -36,9 +35,15 @@ mesh = SubResource("CapsuleMesh_bvfbr")
 
 [node name="CameraController" type="Node3D" parent="." unique_id=1301500045]
 
-[node name="Camera3D" parent="CameraController" unique_id=1019764245 instance=ExtResource("2_3mwrl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8089027, 0)
+[node name="Camera3D" type="Camera3D" parent="CameraController" unique_id=1394606869]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
 [node name="RayCast3D" type="RayCast3D" parent="." unique_id=1950353034]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.300448, 0)
 target_position = Vector3(0, 1.7, 0)
+
+[node name="Control" type="Control" parent="." unique_id=1660372085]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
