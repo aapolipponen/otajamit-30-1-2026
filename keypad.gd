@@ -54,6 +54,14 @@ func _ready():
 		add_child(audio_player)
 
 # ==================================================
+# COLOR HELPERS
+# ==================================================
+func get_flash_color() -> Color:
+	if GameGlobal.player_type == "Valkoinen":
+		return Color(0.15, 0.15, 0.15) # dark gray for white background
+	return Color.WHITE
+
+# ==================================================
 # UI CONSTRUCTION
 # ==================================================
 func build_ui():
@@ -79,6 +87,7 @@ func build_ui():
 		lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		lbl.custom_minimum_size = Vector2(64, 80)
 		lbl.add_theme_font_size_override("font_size", 48)
+		lbl.modulate = get_flash_color()
 		digit_labels.append(lbl)
 		digits_container.add_child(lbl)
 
@@ -170,7 +179,6 @@ func process_digit(digit: int):
 		input_locked = false
 		return
 
-	# Show the digit
 	digit_labels[index].text = str(digit)
 
 	if digit == passcode[index]:
@@ -188,7 +196,6 @@ func process_digit(digit: int):
 		else:
 			await debounce()
 	else:
-		# Remove wrong digit immediately
 		digit_labels[index].text = "_"
 
 		var is_last_heart = hearts == 1
@@ -214,6 +221,7 @@ func process_digit(digit: int):
 func update_digits():
 	for i in range(digit_labels.size()):
 		digit_labels[i].text = str(buffer[i]) if i < buffer.size() else "_"
+		digit_labels[i].modulate = get_flash_color()
 
 func update_hearts():
 	for i in range(heart_icons.size()):
@@ -226,7 +234,7 @@ func play_correct_feedback(index: int):
 	digit_labels[index].modulate = Color.GREEN
 	screen_flash(0.5)
 	await wait(0.2)
-	digit_labels[index].modulate = Color.WHITE
+	digit_labels[index].modulate = get_flash_color()
 
 func play_wrong_feedback(index: int, cruel := false):
 	digit_labels[index].modulate = Color.RED
@@ -238,7 +246,7 @@ func play_wrong_feedback(index: int, cruel := false):
 		jitter(root_container, 20, 0.4)
 	await chroma_aberration(cruel)
 	await wait(0.25)
-	digit_labels[index].modulate = Color.WHITE
+	digit_labels[index].modulate = get_flash_color()
 
 # ==================================================
 # FLASH, JITTER, CHROMATIC ABERRATION
@@ -271,23 +279,25 @@ func chroma_aberration(cruel := false):
 		tween.tween_property(c, "position", Vector2.ZERO, 0.15).set_delay(0.1)
 
 # ==================================================
-# INPUT FLASH (Next Empty Digit, Faster on Last Heart)
+# INPUT FLASH
 # ==================================================
 func start_input_flash():
 	if input_flash_tween and input_flash_tween.is_valid():
 		input_flash_tween.kill()
 	
 	input_flash_tween = create_tween()
-	input_flash_tween.set_loops() # infinite loop
+	input_flash_tween.set_loops()
 
 	var next_index = buffer.size()
 	if next_index >= digit_labels.size():
-		return # nothing to flash
+		return
 
 	var lbl = digit_labels[next_index]
+	lbl.modulate = get_flash_color()
+
 	var rate = input_flash_rate
 	if hearts == 1:
-		rate *= 0.4 # faster pulse on last heart
+		rate *= 0.4
 
 	input_flash_tween.tween_property(lbl, "modulate:a", 0.3, rate/2).set_trans(Tween.TRANS_SINE)
 	input_flash_tween.tween_property(lbl, "modulate:a", 1.0, rate/2).set_trans(Tween.TRANS_SINE)
@@ -298,18 +308,75 @@ func start_input_flash():
 func debounce():
 	await wait(debounce_time)
 	input_locked = false
-	start_input_flash() # restart pulse for next empty digit
+	start_input_flash()
 
 func wait(time: float):
 	return get_tree().create_timer(time).timeout
+
+func get_win_screens() -> Array[String]:
+	var is_black := GameGlobal.player_type == "Musta"
+
+	var screens: Array[String] = [
+		"SYÖTETTYÄNNE KOODIN LATTIA ALKAA TÄRISEMÄÄN",
+		"SEINÄT ROMAHTAVAT",
+	]
+
+	if is_black:
+		screens.append("TAIVAAN TÄHDET SAMMUVAT")
+	else:
+		screens.append("KAIKKI PIMENEE")
+
+	screens.append_array([
+		"JA SITTEN",
+		"AVAATTE SILMÄNNE",
+		"MASKI ON KADONNUT",
+		"OLETTE VAPAITA",
+		"VOITIT PELIN"
+	])
+
+	return screens
+
+
+func get_lose_screens() -> Array[String]:
+	var is_black := GameGlobal.player_type == "Musta"
+
+	var screens: Array[String] = [
+		"LATTIA ALKAA TÄRISEMÄÄN",
+		"SEINÄT ROMAHTAVAT",
+		"TAIVAAN TÄHDET SAMMUVAT",
+	]
+
+	if is_black:
+		screens.append("KAIKKI MUUTTUU VALKOISEKSI")
+	else:
+		screens.append("KAIKKI PIMENEE")
+
+	screens.append_array([
+		"ETTEKÄ AVAA SILMIÄNNE ENÄÄ KOSKAAN",
+		"HÄVISIT PELIN"
+	])
+
+	return screens
 
 # ==================================================
 # END STATES
 # ==================================================
 func win():
 	input_locked = true
-	win_screen.visible = true
+
+	var ending := preload("res://EndingScreen.tscn").instantiate()
+	ending.screens = get_win_screens()
+	ending.final_color = Color.GREEN
+
+	get_tree().root.add_child(ending)
+	queue_free()
 
 func lose():
 	input_locked = true
-	lose_screen.visible = true
+
+	var ending := preload("res://EndingScreen.tscn").instantiate()
+	ending.screens = get_lose_screens()
+	ending.final_color = Color.RED
+
+	get_tree().root.add_child(ending)
+	queue_free()

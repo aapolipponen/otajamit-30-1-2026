@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://c2fe3y5j47nb0"]
+
+[ext_resource type="Script" uid="uid://cb1q7bu4l30ja" path="res://EndingScreen.gd" id="1_2hgtk"]
+[ext_resource type="AudioStream" uid="uid://rxa0617lrp1j" path="res://single-key-press-393908.mp3" id="2_q1ioq"]
+
+[node name="EndingScreen" type="Control" unique_id=1717601703]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+script = ExtResource("1_2hgtk")
+text_sound = ExtResource("2_q1ioq")

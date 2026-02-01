@@ -29,6 +29,8 @@
 [ext_resource type="Texture2D" uid="uid://bb8l5fw3vajb7" path="res://Näyttökuva 2026-01-31 144208.png" id="14_ew3d7"]
 [ext_resource type="Material" uid="uid://x1qffxcym4g" path="res://sky.tres" id="28_j0nvx"]
 [ext_resource type="Script" uid="uid://cj0dffufjo88w" path="res://keypad.gd" id="29_ioty2"]
+[ext_resource type="AudioStream" uid="uid://3kqebpr0dstf" path="res://button-press-beep-269718.mp3" id="30_ew3d7"]
+[ext_resource type="AudioStream" uid="uid://pcesv3em1413" path="res://horror-orchestra-warning-338415.mp3" id="31_57ok6"]
 
 [sub_resource type="Sky" id="Sky_ioty2"]
 sky_material = ExtResource("28_j0nvx")
@@ -1518,3 +1520,6 @@ grow_vertical = 2
 mouse_filter = 2
 mouse_behavior_recursive = 1
 script = ExtResource("29_ioty2")
+enable_sounds = true
+sound_correct = ExtResource("30_ew3d7")
+sound_wrong = ExtResource("31_57ok6")

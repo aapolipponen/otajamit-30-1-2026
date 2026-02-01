@@ -1,10 +1,13 @@
 # MainMenu.gd
+class_name MainMenu
 extends Control
 
 # ==================================================
 # CONFIG
 # ==================================================
 @export var testing_scene_path := "res://Testing.tscn"
+
+var intro: IntroScreen = preload("res://IntroScreen.tscn").instantiate()
 
 # ==================================================
 # STATE
@@ -133,9 +136,19 @@ func _on_commit():
 	load_game_scene()
 
 func load_game_scene():
-	var scene = load(testing_scene_path)
-	if scene:
-		get_tree().change_scene_to_packed(scene)
+	var choice_text := "VALKOISEN" if GameGlobal.player_type == "Valkoinen" else "MUSTAN"
+	var world_text := "valkoiselta" if GameGlobal.player_type == "Valkoinen" else "mustalta"
+
+	intro.screens = [
+		"OLET VALINNUT " + choice_text,
+		"HERÄÄT TUNTEMATTOMASSA PAIKASSA",
+		"KAIKKI NÄYTTÄÄ " + world_text.to_upper(),
+		"ET MUISTA MITÄÄN",
+		"TIEDÄT VAIN, ETTÄ SINUN ON PÄÄSTÄVÄ POIS"
+	]
+
+	get_tree().root.add_child(intro)
+	queue_free()
 
 # ==================================================
 # ANIMATION
